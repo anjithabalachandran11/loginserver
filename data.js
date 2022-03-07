@@ -8,7 +8,7 @@ const register=(id,name,age) =>{
         if(user){
             return{
                 statuscode:401,
-                message:"already exist"
+                message:"user already exist"
             }
         }
         else{
@@ -50,7 +50,7 @@ const login=(id,name) => {
         else{
             return{
                 statuscode:404,
-                message: "invalid user!!!"
+                message: "invalid user id!!!"
             }
         }
 
@@ -90,10 +90,59 @@ const display = (id, uname) =>{
     })
 }
 
+const update = (id, uname, age) =>{
+    return db.User.findOneAndUpdate({id},{$set:{"age":age}}).then(cuser => {
+        cuser.save()
+        if(cuser){
+            if(cuser.name == uname){
+                return{
+                    statuscode : 200,
+                    message : "updated",
+                    id,
+                    uname,
+                    age
+                }
+            }
+            else{
+                return{
+                    statuscode:400,
+                    message:'invalid name'
+                }
+            }
+        } 
+        else{
+            return{
+                statuscode: 404,
+                message: 'no such user'
+            }
+        }   
+    })
+}
+
+const deleteuser = (id)=>{
+    return db.User.deleteOne({id}).then((cuser) => {
+        console.log(cuser)
+        if(cuser){
+            return{
+                statuscode : 200,
+                message:'Account Deleted'
+            }
+        }
+        else{
+            return{
+                statuscode : 401,
+                message : "Operation Denied" 
+            }
+        }
+    })
+}
+
 module.exports={
     register,
     login,
-    display
+    display,
+    update,
+    deleteuser
 }
 
 

@@ -50,7 +50,19 @@ app.post('/login',(req,res) => {
 
 app.post('/display',jwtmiddleware,(req,res) =>{
     fun.display(req.body.id,req.body.name).then(result =>{
-        res.status(result.statuscode).json(result).send(result)
+        res.status(result.statuscode).json(result)
+    })
+})
+
+app.post('/update',jwtmiddleware,(req,res) =>{
+    fun.update(req.body.id,req.body.name,req.body.age).then(result =>{
+        res.status(result.statuscode).json(result)
+    })
+})
+
+app.delete('/delete',jwtmiddleware,(req,res) =>{
+    fun.deleteuser(req.body.id).then(result =>{
+        res.status(result.statuscode).json(result)
     })
 })
 
