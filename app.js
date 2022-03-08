@@ -54,14 +54,20 @@ app.post('/display',jwtmiddleware,(req,res) =>{
     })
 })
 
-app.post('/update',jwtmiddleware,(req,res) =>{
+// app.post('/update',jwtmiddleware,(req,res) =>{
+//     fun.update(req.body.id,req.body.name,req.body.age).then(result =>{
+//         res.status(result.statuscode).json(result)
+//     })
+// })
+app.put('/update',jwtmiddleware,(req,res) =>{
     fun.update(req.body.id,req.body.name,req.body.age).then(result =>{
         res.status(result.statuscode).json(result)
     })
 })
 
-app.delete('/delete',jwtmiddleware,(req,res) =>{
-    fun.deleteuser(req.body.id).then(result =>{
+app.delete('/delete/:id',jwtmiddleware,(req,res) =>{
+    //console.log("params :"+req.params.id)
+    fun.deleteuser(req.params.id).then(result =>{
         res.status(result.statuscode).json(result)
     })
 })

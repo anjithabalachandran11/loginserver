@@ -120,8 +120,8 @@ const update = (id, uname, age) =>{
 }
 
 const deleteuser = (id)=>{
-    return db.User.deleteOne({id}).then((cuser) => {
-        console.log(cuser)
+    return db.User.findOneAndDelete({id}).then((cuser) => {
+        console.log("cuser : "+cuser)
         if(cuser){
             return{
                 statuscode : 200,
